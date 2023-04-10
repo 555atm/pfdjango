@@ -1,0 +1,56 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPortforio</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'common/style.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'myhaiku/css/haiku.css' %}"> -->
+    {% block extraheader %}{% endblock %}
+</head>
+
+<!-- {% if 'quiz' in request.path %} 
+    <body class="bg" background="{% static 'myhaiku/img/bamboo4.jpg' %}">
+{% elif 'haiku' in request.path %} background="" 
+    <body background="{% static 'myhaiku/img/bamboo4.jpg' %}">
+{% else %}
+    <body>
+{% endif %} -->
+
+
+<body>
+
+
+    <nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark">
+    <div class="container justify-content-between">
+        <a href="/" class="navbar-brand test_test_test">私のポートフォリオ</a>
+        {% if user.is_authenticated %}
+        <p class="m-3" style="color: gray;">{{user.get_username }}さん、ようこそ！</p>
+        {% endif %}
+    </div>
+    <ul class="navbar-nav mr-md-2">
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url '' %}">メニューへ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'mybbs:top' %}">掲示板へ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'myquiz:top' %}">３択クイズへ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'myhaiku:top' %}">俳句ゲームへ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">ログアウト</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ログイン</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">ユーザー登録</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<main>
+    <div class="container">
+        {% block main  %}{% endblock %}
+    </div>
+</main>
+</body>
+</html>
+

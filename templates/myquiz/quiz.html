@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+    {% comment %} 
+      <head>
+      <title>3択クイズ画面[MyPf]</title>
+      <link rel="stylesheet" href="quiz.css" type="text/css">
+      </head>
+    {% endcomment %}
+
+
+
+    <div class="header">
+        <script type="text/javascript" src="../main.js"></script>
+        <h1 class="m-2"><span class="pyonpyon">3択</span>クイズ！<span class="pyonpyon"></span></h1>
+        <p class="m-3">{{ user.get_username }}さんが挑戦中。</p>
+        <div class="header_menu" style="text-align: right">
+        </div>
+    </div>
+
+    <div class="m-3">
+        <h4 class="border-top">問題:1 ジャンル : (スポーツ)</h4>
+
+        <p>
+            {{mondai.question}}
+        </p>
+    </div>
+
+
+    <div  class="m-3">
+      <form action="{% url 'myquiz:answer' %}" method="post">
+        <label><input type="radio" name="user_choice" id="kotae" value="{{mondai.choice_a}}" required>
+        選択肢A：{{mondai.choice_a}}</label><br>
+        <label><input type="radio" name="user_choice" id="kotae" value="{{mondai.choice_b}}">
+        選択肢B：{{mondai.choice_b}}</label><br>
+        <label><input type="radio" name="user_choice" id="kotae" value="{{mondai.choice_c}}">
+        選択肢C：{{mondai.choice_c}}</label><br>
+        {% csrf_token %}
+        <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}">
+        <input type="hidden" name="monme" value="{{ monme }}">
+        <input type="hidden" name="correct" value="{{ correct }}">
+        <input type="hidden" name="mondai_id" value="{{ mondai.id }}">
+        <input type="hidden" name="quiz_shuffle_list" value="{{ quiz_shuffle_list }}">
+        <input type="submit" value="答え"  class="m-2">
+    </form>
+    <footer class="m-3 border-top">
+        <p>現在、全{{ number_of_questions }}問中の{{ monme }}問目、正解数は{{ correct }}です。</p>
+        <h1>デバッグです：quiz_shuffle_listは{{ quiz_shuffle_list }}</h1>
+    </footer>
+
+    
+
+
+</div>
+
+
+{% endblock %}

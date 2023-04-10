@@ -1,0 +1,31 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+    <h3>俳句を新規投稿する</h3>
+
+<form action="" method="post">
+
+    <ul>
+        <li>件名</li>
+        <input type="textbox">
+        <li>中身（一部）</li>
+        <input type="textbox">
+        <li>投稿者</li>
+        <li>登校日</li>
+
+        <a href="{% url 'mybbs:top' %}">｜戻るボタン</a>
+        　｜　投稿ボタン
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+

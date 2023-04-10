@@ -1,0 +1,53 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div> {% endcomment %}
+    <p>新規投稿</p>
+
+    <form action="{% url 'mybbs:new' %}" method="post">
+    {% comment %} <form action="{% url 'mybbs:new' %}"  enctype="multipart/form-data" method="post"> {% endcomment %}
+        <ul>
+            <li>件名</li>
+            {{form.title}}
+            <li>中身（一部）</li>
+            {{form.content}}
+            <li>カテゴリー</li>
+            {{form.category}}
+            <li>タグ</li>
+            {{form.tag}}
+
+
+            {% comment %} <li>件名</li>
+            <input type="textbox" value="title">
+            <li>中身（一部）</li>
+            <input type="textbox" value="content"> {% endcomment %}
+            <li>投稿者</li>
+            <li>投稿日</li>
+
+            {% csrf_token %}
+            {% comment %} {{ form.as_p }} {% endcomment %}
+            <button type="" value="戻る" ><a href="{% url 'mybbs:top' %}" >戻る</a></button>
+            <input type="submit" value="投稿" class="btn btn-primary">
+        </ul>
+    </form>
+
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+

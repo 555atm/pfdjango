@@ -1,0 +1,58 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+<div class="wrap">
+  <div class="header">
+    <h1>お遊び俳句ゲーム<h1>
+    <h1>投稿された俳句一覧<h1>
+    <div class="header_menu" style="text-align: right">
+            <a href="{% url 'myhaiku:top' %}" class="btn">TOPへ</a>
+            <a href="{% url 'myhaiku:top' %}" class="btn">ログアウト</a>
+    </div>
+  </div>
+
+  <div class="space">
+    <p>　　</p>
+  </div>
+
+  <div class="haiku_list">
+    <table border="1">
+      <tr>
+        <th>　No</th>
+        <th>　上の句</th>
+        <th>　中の句</th>
+        <th>　下の句</th>
+        <th>　課題文字:上　</th>
+        <th>　課題文字:中　</th>
+        <th>　課題文字:下　</th>
+        <th>　投稿日　</th>
+        <th>　投稿者　</th>
+        <th>　投稿者　</th>
+      </tr>
+
+      {% for haiku in haikus %}
+      <tr>
+        <td>{{ haiku.kaminoku }}</td>
+        <td>{{ haiku.nakanoku }}</td>
+        <td>{{ haiku.shimonoku }}</td>
+        <td>{{ haiku.kami_random }}</td>
+        <td>{{ haiku.naka_random }}</td>
+        <td>{{ haiku.shimo_random }}</td>
+        <!-- <td>{{ haiku.get_username }}</td> -->
+        <!-- <td><a href="{% url 'myhaiku:detail' post.pk %}" class="link">詳細</a></td> -->
+        <!-- <td><a href="{% url 'myhaiku:delete' post.pk %}"  class="link">削除</a></td> -->
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+
+{% endblock %}
+
+</body>
+</html>
+

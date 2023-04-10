@@ -1,0 +1,84 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+  {% comment %} 
+  <title>3択クイズ選択画面[MyPf]</title>
+
+      <div class="header">
+          <script type="text/javascript" src="../main.js"></script>
+          <script type="text/javascript" src="quiz.js"></script>
+          <h1><span class="pyonpyon">3択</span>クイズ！<span class="pyonpyon"></span></h1>
+            <h2>Mensetsu001さんが挑戦中。</h2>
+            <div class="header_menu" style="text-align: right">
+                    <a href="../menu.php" class="btn">TOPへ</a>
+                    <a href="../logout.php" class="btn">ログアウト</a>
+            </div>
+      </div> 
+  {% endcomment %}
+
+
+<h2 class="m-1">クイズメニューです</h2>
+
+<div class="quiz_menu">
+
+    <div class="quiz_menu1 border-top m-4">
+      <h4>メニュー1: 全ジャンルのランダムクイズに挑戦！！</h4>
+      <p>　※全ての問題から、選んだ数だけの問題数がランダムに出題されます。</p>
+
+
+      <form action="{% url 'myquiz:quiz' %}" method="get">
+            <label>全問中から</label>
+                <select name="number_of_questions">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                <!-- 
+                    <option value="5">5</option>
+                    <option value="8">8</option> 
+                -->
+                </select>
+            <label>問を出題 </label>
+            <input type="hidden" name="monme" value="0">
+            <input type="submit" value="3択クイズゲーム開始！" class="submit m-3">
+        </form>
+    </div>
+
+    <div class="quiz_menu2 border-top m-4">
+        <h4>メニュー2: ジャンルを絞ってランダムクイズに挑戦！！</h4>
+        <p> 　　　　　　　※ ジャンルを一つ選択し、指定した問題数でクイズが出題されます。</p>
+
+        <form action="{% url 'myquiz:quiz' %}" method="post">
+            <select name="selected_genre" class="selected_genre">
+                {% for genre in genres %}
+                <option value="{{genre.name}}">{{genre.name}}(1問)</option>
+                {% endfor %}
+            </select>
+            <label>の中から</label>
+                <select name="number_of_questions">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+            </select>
+            <label>問を出題 </label>
+            <input type="hidden" name="monme" value="1">
+            <input type="submit" value="3択クイズゲーム開始！" class="submit m-3">
+
+
+
+        </form>
+    </div>
+
+    <div class="footer text-left m-5">
+        <nav class="nav border-top">
+            <h4>クイズメニュー</h4>
+            <a class="nav-link" href="{% url 'myquiz:new' %}" class="link">クイズを投稿する</a>
+            <a class="nav-link" href="{% url 'myquiz:list' %}" class="link">クイズ一覧</a>
+        </nav>
+
+
+    {% endblock %}

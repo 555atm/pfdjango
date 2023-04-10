@@ -1,0 +1,76 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+{% comment %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> {% endcomment %}
+
+{% block main %}
+
+<h2 class="m-1">クイズ一覧</h2>
+
+    {% if messages %}
+        <div class="bg-secondary">
+            <ul class="">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="">
+    {% comment %} <table border="1" class="table" style="border-color:gray;"> {% endcomment %}
+    <table class="table m-3">
+        <tr>
+            <th>編集</th>
+            <th>削除</th>
+            <th>タイトル</th>
+            <th>カテゴリ</th>
+            <th>問題文</th>
+            <th>選択肢1</th>
+            <th>選択肢2</th>
+            <th>選択肢3</th>
+            <th>答え</th>
+            <th>出題者</th>
+            <th>作成日</th>
+            <th>修正日</th>
+        </tr>
+
+    {% for quiz in quizes %}
+        <tr>
+            <td><a href="{% url 'myquiz:edit' quiz.pk %}" class="link">編集</a></td>
+            <td><a href="{% url 'myquiz:delete' quiz.pk %}"  class="link">削除</a></td>
+            <td>{{ quiz.title }}</td>
+            <td>{{ quiz.genre }}</td>
+            <td>{{ quiz.question }}</td>
+            <td>{{ quiz.choice_a }}</td>
+            <td>{{ quiz.choice_b }}</td>
+            <td>{{ quiz.choice_c }}</td>
+            <td>{{ quiz.answer }}</td>
+            <td>{{ quiz.member_id }}</td>
+            <td>{{ quiz.created_at }}</td>
+            <td>{{ quiz.updated_at }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+
+    <div class="footer text-left m-4">
+        <nav class="nav">
+            <h4>クイズメニュー</h4>
+            <a class="nav-link" href="{% url 'myquiz:new' %}">新規投稿 </a>
+            <a class="nav-link" href="{% url 'myquiz:top' %}">トップへ戻る </a>
+        </nav>
+    </div>
+
+
+    {% endblock %}
+

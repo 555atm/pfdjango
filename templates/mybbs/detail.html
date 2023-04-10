@@ -1,0 +1,43 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div> {% endcomment %}
+    <p>詳細</p>
+
+        <ul>
+            <li>件名</li>
+            {{post.title}}
+            <li>中身（一部）</li>
+            {{post.content}}
+
+            {% comment %} <li>件名</li>
+            <input type="textbox" value="title">
+            <li>中身（一部）</li>
+            <input type="textbox" value="content"> {% endcomment %}
+            <li>投稿者</li>
+            <li>投稿日</li>
+
+            {% comment %} {{ form.as_p }} {% endcomment %}
+            <button type="" value="戻る"><a href="{% url 'mybbs:top' %}">戻る</a></button>
+            <button type="" value="編集する"><a href="{% url 'mybbs:edit'  post.pk %}">編集する</a></button>
+        </ul>
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+

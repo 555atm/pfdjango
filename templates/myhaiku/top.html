@@ -1,0 +1,126 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+<div class="wrap">
+
+    <div class="header">
+        <h1>お遊び俳句ゲーム<h1>
+        <h2>ゲームレベル選択</h2>
+        <div class="header_menu" style="text-align: right">
+            <a href="../menu.php" class="btn">TOPへ</a>
+            <a href="../logout.php" class="btn">ログアウト</a>
+        </div>
+    </div>
+
+    <div class="contents">
+    <p>ゲームレベルを選択してください</p>
+        <form action="{% url 'myhaiku:gamelevel' %}" method="post">
+        <label><input type="radio" name="gamelevel" value="3" checked>[Lv3] 課題文字: 上・中・下の句にそれぞれ1文字　★オススメ！</label><br>
+        <label><input type="radio" name="gamelevel" value="1">[Lv1] 課題文字なし　　　　　　　　　　　　　　　　　　　　</label><br>
+        <input type="hidden" name="nogamelevel" value="nogamelevel">
+        <label>　　　　　※[Lv2] 課題文字:上の句にひらがな1文字　は廃止する予定※　　　　</label><br>
+        <br>
+        <label>  </label>
+        {% csrf_token %}
+        <input type="submit" value="選択">
+        </form><br>
+    </div>
+
+    <div class="rules">
+        <p class="rules">【基本ルール】</p>
+        <p class="rules">&nbsp;&nbsp;・上の句は６～８音、中の句は4~6音、</p>
+        <p class="rules">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下の句は６～８音にして下さい。</p>
+        <p class="rules">&nbsp;&nbsp;・『ひらがなのみ』で俳句を書いてください</p>
+        <p class="rules">&nbsp;&nbsp;・使用可能な文字：「あ～を」まで。</p>
+        <p class="rules">&nbsp;&nbsp;・課題文字については大文字、小文字、</p>
+        <p class="rules">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;濁音半濁音の有無、は区別されます。</p>
+        <p class="rules">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例えば...「や」と「ゃ」、「あ」と「ぁ」、「か」と</p>
+        <p class="rules">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;「が」、「は」と「ぱ」、「お」と「を」は区別されます。</p>
+    </div>
+
+
+
+        <!-- 
+        // switch文
+        switch ($_POST['gamelevel']){
+            case 'gamelv1':
+                $_SESSION['kami_random'] = null;
+                $_SESSION['naka_random'] = null;
+                $_SESSION['shimo_random'] = null;    
+                echo '選択したゲームレベル：1<br>';
+                echo '課題の文字は以下となります。ゲームを開始しますか？<br>';
+                echo '上の句：条件なし<br>';
+                echo '中の句：条件なし<br>';
+                echo '下の句：条件なし<br>';
+                echo $formStart;
+                break;
+            case 'gamelv2':
+                $_SESSION['kami_random'] = getRandomHiragana();
+                $_SESSION['naka_random'] = null;
+                $_SESSION['shimo_random'] = null;    
+                echo '選択したゲームレベル：2：<br>';
+                echo '課題の文字は以下となります。ゲームを開始しますか？<br>';
+                echo '上の句：『' . $_SESSION['kami_random'] . '』を含めること。<br>';
+                echo '中の句：条件なし<br>';
+                echo '下の句：条件なし<br>';
+                echo $formStart;
+                break;
+            case 'gamelv3':
+                $_SESSION['kami_random'] = getRandomHiragana();
+                $_SESSION['naka_random'] = getRandomHiragana();
+                $_SESSION['shimo_random'] = getRandomHiragana();    
+                echo '選択したゲームレベル：3<br>';
+                echo '課題の文字は以下となります。ゲームを開始しますか？<br>'; 
+                echo '上の句：『' . $_SESSION['kami_random'] . '』を含めること。<br>';
+                echo '中の句：『' . $_SESSION['naka_random'] . '』を含めること。<br>';
+                echo '下の句：『' . $_SESSION['shimo_random'] . '』を含めること。<br>';
+                echo $formStart;
+                break;
+        default:
+        // デフォルトは特になにもしない。 
+        -->
+
+
+    <div>
+        {% if gamelevel == 1 %}
+            <p>選択したゲームレベル：1</p>
+            <p>課題の文字は以下となります。ゲームを開始しますか？</p>
+            <p>上の句：条件なし</p>
+            <p>中の句：条件なし</p>
+            <p>下の句：条件なし</p>
+        {% endif %}
+
+        {% if gamelevel == 3 %}
+            <p>選択したゲームレベル：3</p>
+            <p>課題の文字は以下となります。ゲームを開始しますか？</p>
+            <p>上の句：『' . {{ naka_random }} . '』を含めること。</p>
+            <p>中の句：『' . {{ naka_random }} . '』を含めること。</p>
+            <p>下の句：『' . {{ shimo_random }} . '』を含めること。</p>
+        {% endif %}
+    </div>
+
+    <div>
+    <form action="{% url 'myhaiku:new' %}" method="post">
+        <input type="hidden" name="$subChar[]" value="$subChar[]">
+        <label></label>
+        <br>
+        <input type="hidden" name="start" value="1">
+        {% csrf_token %}
+        <input type="submit" value="ゲーム開始">
+    </form>
+    </div>>
+
+
+
+    <div class="footer">
+        <h3>俳句メニュー</h3>
+        <a href="{% url 'myhaiku:list' %}" class="link">俳句一覧を見る</a>
+    </div>
+
+
+
+{% endblock %}

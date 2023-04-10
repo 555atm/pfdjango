@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% comment %} {% load static %} {% endcomment %}
+{% load django_bootstrap5 %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}"
+    <title>Document</title>
+</head>
+<body> {% endcomment %}
+
+{% block main %}
+    <h2>ログイン</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="ログイン" %}
+    </form>
+{% endblock %}
+
+
+{% comment %} </body>
+</html> {% endcomment %}
+

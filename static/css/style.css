@@ -1,0 +1,12 @@
+.button {
+    margin: 2px;
+}
+
+.link {
+    margin: 2px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+}

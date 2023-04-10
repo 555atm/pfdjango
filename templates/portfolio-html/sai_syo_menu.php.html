@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="style.css">
+<title>メニュー [MyPf]</title>
+</head>
+<body>
+<div class="header">
+<h1>私のポートフォリオ</h1>
+<h2>Mensetsu001さん、ようこそ♪</h2>
+<div class="header_menu" style="text-align: right">
+			<a href="logout.php" class="btn">ログアウト</a>
+	</div>
+</div>
+
+<div class="wrapp">
+  <div class="top_menu">
+    <h2>メニュー</h2>
+    <label class="menu_btn">1.お遊び俳句ゲームに挑戦★</label>
+    <a href="./haiku/gamelevel.php" class="btn">START</a><br><br>
+    <label class="menu_btn">2.お遊び俳句の作品を閲覧</label>
+    <a href="./haiku/haiku_read.php" class="btn">START</a><br><br>
+
+    <label class="menu_btn">3.クイズに挑戦！！★</label>
+    <a href="./quiz/quiz_genre.php" class="btn">START</a><br><br>
+
+    <label class="menu_btn">4.クイズを投稿する</label>
+    <a href="./quiz/quiz_post.php"  class="btn">START</a><br><br>
+
+    <label class="menu_btn">5.しんぷる掲示板</label>
+    <a href="./bbs.php" class="btn">START</a>
+    <br>
+    <br>
+
+  </div>
+</div>
+
+<!--
+	<div class=div_debug1>
+		<p>■今後追加予定■
+			・ページング　・ソート機能　・コメント機能　・いいね機能
+		</p>
+
+			<p>■デバッグ用（変数の確認■</p>
+			<pre>var_dump($_SESSION)の結果→   array(3) {
+  ["id"]=>
+  string(1) "6"
+  ["time"]=>
+  int(1669461049)
+  ["member"]=>
+  array(16) {
+    ["id"]=>
+    string(1) "6"
+    [0]=>
+    string(1) "6"
+    ["user_name"]=>
+    string(11) "Mensetsu001"
+    [1]=>
+    string(11) "Mensetsu001"
+    ["password"]=>
+    string(40) "17ac8a6aeccfed9c844febb4645f5afc0465edac"
+    [2]=>
+    string(40) "17ac8a6aeccfed9c844febb4645f5afc0465edac"
+    ["user_image"]=>
+    string(14) "20220523195820"
+    [3]=>
+    string(14) "20220523195820"
+    ["level"]=>
+    string(1) "0"
+    [4]=>
+    string(1) "0"
+    ["experience"]=>
+    string(1) "0"
+    [5]=>
+    string(1) "0"
+    ["created"]=>
+    string(19) "2022-05-23 19:58:26"
+    [6]=>
+    string(19) "2022-05-23 19:58:26"
+    ["modified"]=>
+    string(19) "2022-05-23 19:58:26"
+    [7]=>
+    string(19) "2022-05-23 19:58:26"
+  }
+}
+</pre>
+			<pre>print_r($_SESSION)の結果→   Array
+(
+    [id] => 6
+    [time] => 1669461049
+    [member] => Array
+        (
+            [id] => 6
+            [0] => 6
+            [user_name] => Mensetsu001
+            [1] => Mensetsu001
+            [password] => 17ac8a6aeccfed9c844febb4645f5afc0465edac
+            [2] => 17ac8a6aeccfed9c844febb4645f5afc0465edac
+            [user_image] => 20220523195820
+            [3] => 20220523195820
+            [level] => 0
+            [4] => 0
+            [experience] => 0
+            [5] => 0
+            [created] => 2022-05-23 19:58:26
+            [6] => 2022-05-23 19:58:26
+            [modified] => 2022-05-23 19:58:26
+            [7] => 2022-05-23 19:58:26
+        )
+
+)
+</pre>
+			<pre>print_r($_COOKIE)の結果→   Array
+(
+    [PHPSESSID] => 13ibq28igi1rh9an99jap379jn
+)
+</pre>
+			<pre>print_r($_POST)の結果→   Array
+(
+)
+</pre>
+		</div>
+	</div>
+-->
+
+</body>
+</html>

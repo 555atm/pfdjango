@@ -1,0 +1,89 @@
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+{% load mathfilters %}
+
+{% block main %}
+
+
+<div class="answer_screen">
+
+    <!-- <?php
+        // 受け取った解答から、正解・不正解を判断する
+        if ($_SESSION['answer'] == $_SESSION['kotae']){
+            $result = true;
+            echo '<p class="correct">やったぁ！！正解！！</p>';
+            echo '<img src="../images/seikai.png" width="18%" height="30%">';
+            $_SESSION['seikaisu']++;
+        } else {
+            $result = false;
+            echo '<p class="correct">残念... 不正解です</p>';
+            echo '<img src="../images/fuseikai.png" width="18%" height="30%">';
+        }
+    ?> -->
+
+    {% if is_correct %}
+        <p class="correct">やったぁ！！正解！！</p>
+        <img src="../images/seikai.png" width="18%" height="30%">
+    {% else %}
+        <p class="correct">残念... 不正解です</p>
+        <img src="../images/fuseikai.png" width="18%" height="30%">
+    {% endif %}
+    
+    <p>答えは『 {{ answer }} 』です</p>
+
+    <br>
+    <br>
+    <p>- 解説 -</p>
+    <p>{{ mondai.commentary }}</p>
+
+    <!-- /*問題まだあるなら『次の問題ボタン』を表示し、
+    *最終問題なら代わりに『クイズ結果へ』を表示する
+    */
+    /* 三項演算子にしたほうが良いのでは？↓【例】↓
+    * ($_SESSION['quiz_count'] > $_SESSION['monme']) ? true : false;
+    */ -->
+
+    
+    {% if number_of_questions == monme %}
+        <div class="to_result">
+            <form action="{% url 'myquiz:result' %}" method="get">
+                {{ csrf_token }}
+                <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}">
+                <input type="hidden" name="monme" value="{{ monme }}">
+                <input type="hidden" name="quiz_shuffle_list" value="{{ quiz_shuffle_list }}">
+                <input type="hidden" name="correct" value="{{ correct }}">
+                <input type="submit" value="クイズ結果へ">
+            </form>
+        </div>
+
+
+    {% else %}
+        <div class="to_next">
+            <form action="{% url 'myquiz:quiz' %}" method="get">
+                {{ csrf_token }}
+                <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}">
+                <input type="hidden" name="monme" value="{{ monme }}">
+                <input type="hidden" name="mondai_id" value="{{ mondai.id }}">
+                <input type="hidden" name="quiz_shuffle_list" value="{{ quiz_shuffle_list }}">
+                {% if is_correct %}
+                    <input type="hidden" name="correct" value="{{ correct }}">
+                {% else %}
+                    <input type="hidden" name="correct" value="{{ correct }}">
+                    <!-- <input type="hidden" name="correct" value="{{ correct|add:plus_one }}"> -->
+                    <!-- <input type="hidden" name="is_next" value="True"> -->
+                {% endif %}
+                <input type="submit" value="次の問題へ">
+            </form>
+        </div>
+    {% endif %}
+
+    <footer class="m-3 border-top">
+        <p>現在、全{{ number_of_questions }}問中の{{ monme }}問目、正解数は{{ correct }}です
+        </p>
+        <h1>デバッグです：quiz_shuffle_listは{{ quiz_shuffle_list }}</h1>
+    </footer>    
+
+</div>
+
+
+{% endblock %}

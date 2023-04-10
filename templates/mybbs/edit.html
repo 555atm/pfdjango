@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+
+
+<h3 class="title">掲示板を編集</h3>
+
+<form action="{{ send_url }}" enctype="multipart/form-data" method="post">
+    <p>タイトル</p>
+    {{form.title}}
+    <p>本文</p>
+    {{form.content}}
+    <p>タグ</p>
+    {{form.tag}}
+
+    {% csrf_token %}
+    <input type=submit value="変更" class="btn btn-primary">
+    <button type="" value="戻る"><a href="{% url 'mybbs:top' %}">戻る</a></button>
+</form>
+
+{% endblock %}

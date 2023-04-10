@@ -1,0 +1,62 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+{% comment %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> {% endcomment %}
+
+{% block main %}
+
+    <h2 class="m-1">投稿一覧</h2>
+
+    <div class="m-4">
+    {% comment %} <table border="1" class="table" style="border-color:gray;"> {% endcomment %}
+    <table class="table m-3">
+        <tr>
+            <th>件名</th>
+            <th>投稿内容（一部）</th>
+            <th>カテゴリ</th>
+            <th>タグ</th>
+            <th>投稿者</th>
+            <th>イメージ画像</th>
+
+            <th>投稿日</th>
+            <th>編集</th>
+            <th>詳細</th>
+            <th>削除</th>
+        </tr>
+
+    {% for post in posts %}
+        <tr>
+            <td>{{ post.title }}</td>
+            <td>{{ post.content }}</td>
+            <td>{{ post.category }}</td>
+            <td>{{ post.tag.name |default:"タグなし" }}</td>
+            <td>{{ user.get_username }}</td>
+            <td>写真-俺１</td>
+            <td>{{ post.created_at }}</td>
+            <td><a href="{% url 'mybbs:edit' post.pk %}" class="link">編集</a></td>
+            <td><a href="{% url 'mybbs:detail' post.pk %}" class="link">詳細</a></td>
+            <td><a href="{% url 'mybbs:delete' post.pk %}"  class="link">削除</a></td>
+            {% comment %} <td>2000/1/1<a href="{% url 'mybbs:new' posts.id %}">編集</a><a href="{% url 'mybbs:delete' posts.id %}">削除</a></td> {% endcomment %}
+        </tr>
+    {% endfor %}
+    </table>
+
+    <div class="footer text-left m-1">
+        <nav class="nav">
+            <h4>掲示板メニュー</h4>
+            <a class="nav-link" href="{% url 'mybbs:new' %}">新規投稿 </a>
+        </nav>
+    </div>
+
+
+
+    {% endblock %}

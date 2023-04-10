@@ -1,0 +1,55 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% endcomment %}
+
+<div>
+    <p>クイズを新規投稿する</p>
+
+<form action="{% url 'myquiz:new' %}" method="post">
+
+    <ul>
+        <li>タイトル</li>
+        {{form.title}}
+        <li>問題</li>
+        {{form.question}}
+        <li>ジャンル</li>
+        {{form.genre}}
+        <li>選択肢A</li>
+        {{form.choice_a}}
+        <li>選択肢B</li>
+        {{form.choice_b}}
+        <li>選択肢c</li>
+        {{form.choice_c}}
+        <li>答え</li>
+        {{form.answer}}
+        {% comment %} これを↑a,b,cの選択肢にしたい {% endcomment %}
+
+
+        <li>投稿者</li>
+        <li>投稿日</li>
+    </ul>
+    {% csrf_token %}
+    <input type="submit" value="投稿する" class="m-2">
+  </form>
+  <a href="{% url 'myquiz:top' %}" class="btn btn-primary btn-sm m-2">戻る</a>
+
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
