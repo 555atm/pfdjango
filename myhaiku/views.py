@@ -39,7 +39,6 @@ class MyhaikuGameLevelView(View):
             random_str = random.choice(hiragana)
             return random_str
 
-
         ##ユーザーが選択したゲームレベルに応じてランダム文字を生成し、top.htmlに返す
         gamelevel = request.POST.get('gamelevel')
         #もしpostされてきたのがゲームレベル３なら、上・中・下それぞれのランダム文字を一つずつ生成して返す
