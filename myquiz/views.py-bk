@@ -25,17 +25,18 @@ class MyquizTopView(View):
 class MyquizQuizView(View):
     template_name = 'myquiz/quiz.html'
 
-    # def post(self, request, pk, *args, **kwargs):
     def post(self, request, *args, **kwargs):
-        # pass
 
         ## １問目の場合
-        # request.session['monme'] = int(request.GET.get('monme'))
-        if 'start' in request.POST:
-        # if 'start' in request.POST['start']:
-        # if request.POST['start'] == 'start':
+        if request.POST['monme'] == '1':
+            request.session['monme'] = int(request.POST['monme'])
+            monme = request.session['monme']
+            print("--monme--")
+            print(monme)
+            print(type(monme))
 
-            #すべてのセッションを削除
+            #すべてのセッションをクリア
+            request.session.clear()
             # del request.session['monme']
             # del request.session['menu']
             # del request.session['monme']
@@ -43,61 +44,37 @@ class MyquizQuizView(View):
             # del request.session['genre']
             # del request.session['questions']
             # del request.session['quiz_shuffle_list']
-            # 間違っても、セッション全て削除しないように！！
-            # request.session.clear()
 
-            #クイズに使うセッションを全て初期化
-            request.session['monme'] = 1
-            print("--request.session['monme']--")
-            print(request.session['monme'])
-            print(type(request.session['monme']))
-
-            ## セッションを念のため初期化
-            #メニュー番号、問題数、ジャンルはクイズ終わるまで不変）
-            request.session['menu'] = 0
-            request.session['number_of_questions'] = 0
-            request.session['genre'] = ""
-            #出題リスト、正解数はクイズ中に変動
-            # request.session['questions'] = 0
-            request.session['quiz_shuffle_list'] =[]
-
-            #1問目をこれから解くので正解数はゼロを返す 
-            request.session['correct'] = 0
-            # correct = request.session['correct']
-
-
-            print("--request.session--")
-            print(request.session)
-            print("--request.POST--")
-            print(request.POST)
-
-            ## ユーザーが選んだメニュー番号、問題数、ジャンルをセッションの格納（クイズ終わるまで不変）
             request.session['menu'] = int(request.POST['menu'])
-            # ↑参考↑　int(request.GET.get('menu'))　だとエラーになる。
+            # ▲▲　string型に対してしかint()できないので、上記が正しい！！　▲▲
+            # ▼▼　以下だとdict型なのでint()できないと怒られる。　▼▼
+            # request.session['menu'] = int(request.GET.get('menu'))
             menu = request.session['menu']
             print("--menu--")
             print(type(menu))
+
             request.session['number_of_questions'] = int(request.POST['number_of_questions'])
             number_of_questions = request.session['number_of_questions']
 
-            # 近日中にジャンル選択機能も追加。
+            ### 後で考える #########################
             # request.session['genre'] = request.POST['genre']
             # genre = request.session['genre']
 
 
-            print("--request.session--")
-            print(request.session)
-
             ### 1問目の場合、ランダム出題リストを作り、リスト１番目のクイズ番号を出題する
-            ## 問題のQuiz.idを取得し、出題リストの配列に入れる
-            # 空のクイズ辞書リストを作成
+
+            #1問目を今から解くので正解数はゼロを返す 
+            request.session['correct'] = 0
+            correct = request.session['correct']
+
+            ## 問題のQuiz.idを取得し、出題リストの空の配列を作っておく
             quiz_dict_list = []
 
-            # メニューが1なら、全クイズのidカラムを取得
+            # メニュー1：全クイズのidカラムを取得
             if menu == 1:
                 quiz_ids = Quiz.objects.all().values("id")
 
-            # メニューが2なら、選択されたクイズジャンルのidカラムを取得
+            # メニュー2：選択されたクイズジャンルのidカラムを取得
             elif menu == 2:
                 quiz_ids = Quiz.objects.filter(field="genre").values("id")
                 # quiz_ids = Quiz.objects.filter(field="genre").values("id")[quiz_ammount]
@@ -108,14 +85,13 @@ class MyquizQuizView(View):
                 print("--quiz_list--")
                 print(quiz_dict_list)
 
-            # 全クイズidだけのlistを作成
+            # クイズidだけのlistにする
             quiz_list = [item['id'] for item in quiz_dict_list]
             print("--quiz_list--")
             print(quiz_list)
 
             #クイズIDリストをランダムに並び替える
             quiz_shuffle_list = random.sample(quiz_list, len(quiz_list))
-            # request.session['quiz_shuffle_list'] = random.sample(quiz_list, len(quiz_list))
             print("--quiz_shuffle_list--")
             print(quiz_shuffle_list)
 
@@ -126,20 +102,22 @@ class MyquizQuizView(View):
             mondai = Quiz.objects.get(id=quiz_shuffle_list[0])
             print("--mondai--")
             print(mondai)
+            # # 全問題数の数を取得
+            # questions = len(quiz_list)
+
 
             return render(request, self.template_name, {
                 "mondai" : mondai,
-                "monme" : request.session['monme'],
-                "correct" : request.session['correct'],
+                "monme" : monme,
+                "correct" : correct,
+                # "questions" : questions,
                 "number_of_questions" : number_of_questions,
                 "quiz_shuffle_list":request.session['quiz_shuffle_list'],
             })
 
 
-        ###2問目以降の場合。（つまり「次の問題へ」を押した時の動作。）
-        # else:
-        elif 'is_next' in request.POST:
-        # elif request.POST['next'] == 'next':
+        ###2問目以降の場合、、、、
+        else:
 
             # return render(request, 'myquiz/quiz.html')
 
@@ -167,30 +145,16 @@ class MyquizQuizView(View):
             mondai = Quiz.objects.get(id=int(quiz_shuffle_list[0]))
 
             correct = request.POST.get('correct')
-
-
-            print("--request.session--")
-            print(request.session)
-
-            # print("--request.session['monme']--")
-            # print(request.session['monme'])
-            # monme = request.session['monme']
-            # print("--monme--")
-            # print(monme)
-            # print(type(monme))
-            # monme +=1
-
-            monme = int(request.POST['monme'])
-            monme += 1
-            print("--monme--")
-            print(monme)
-            print(type(monme))
+            monme = int(request.POST.get('monme'))
+            if monme > 2:
+                monme +=1
 
             #戻り値を返す
             return render(request, self.template_name, {
                 "mondai" : mondai,
                 "monme" : monme,
                 "correct" : correct,
+                # "questions" : questions,
                 "number_of_questions" : request.session['number_of_questions'],
                 "quiz_shuffle_list":quiz_shuffle_list,
             })
@@ -205,7 +169,7 @@ class MyquizAnswerView(View):
         print("--request.GET--")
         print(request.POST)
         monme = request.POST['monme']
-        number_of_questions = request.session['number_of_questions']
+        number_of_questions = request.POST['number_of_questions']
         mondai_id = request.POST['mondai_id']
         correct = int(request.POST['correct'])
         quiz_shuffle_list =[]

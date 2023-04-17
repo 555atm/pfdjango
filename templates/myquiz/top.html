@@ -29,7 +29,7 @@
       <p>　※全ての問題から、選んだ数だけの問題数がランダムに出題されます。</p>
 
 
-      <form action="{% url 'myquiz:quiz' %}" method="get">
+      <form action="{% url 'myquiz:quiz' %}" method="post">
             <label>全問中から</label>
                 <select name="number_of_questions">
                     <option value="1">1</option>
@@ -41,7 +41,9 @@
                 -->
                 </select>
             <label>問を出題 </label>
-            <input type="hidden" name="monme" value="0">
+            <input type="hidden" name="start" value="start">
+            <input type="hidden" name="menu" value="1">
+            {% csrf_token %}
             <input type="submit" value="3択クイズゲーム開始！" class="submit m-3">
         </form>
     </div>

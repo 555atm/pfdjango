@@ -44,10 +44,10 @@
     */ -->
 
     
-    {% if number_of_questions == monme %}
+    {% if monme >= number_of_questions %}
         <div class="to_result">
             <form action="{% url 'myquiz:result' %}" method="get">
-                {{ csrf_token }}
+                {% csrf_token %}
                 <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}">
                 <input type="hidden" name="monme" value="{{ monme }}">
                 <input type="hidden" name="quiz_shuffle_list" value="{{ quiz_shuffle_list }}">
@@ -59,19 +59,20 @@
 
     {% else %}
         <div class="to_next">
-            <form action="{% url 'myquiz:quiz' %}" method="get">
-                {{ csrf_token }}
-                <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}">
+            <form action="{% url 'myquiz:quiz' %}" method="post">
+                <!-- <input type="hidden" name="number_of_questions" value="{{ number_of_questions }}"> -->
                 <input type="hidden" name="monme" value="{{ monme }}">
                 <input type="hidden" name="mondai_id" value="{{ mondai.id }}">
                 <input type="hidden" name="quiz_shuffle_list" value="{{ quiz_shuffle_list }}">
+
                 {% if is_correct %}
                     <input type="hidden" name="correct" value="{{ correct }}">
                 {% else %}
                     <input type="hidden" name="correct" value="{{ correct }}">
-                    <!-- <input type="hidden" name="correct" value="{{ correct|add:plus_one }}"> -->
-                    <!-- <input type="hidden" name="is_next" value="True"> -->
                 {% endif %}
+
+                <input type="hidden" name="is_next" value="is_next">
+                {% csrf_token %}
                 <input type="submit" value="次の問題へ">
             </form>
         </div>
