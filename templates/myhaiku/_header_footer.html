@@ -1,0 +1,25 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+
+<div class="header container-fluid text-center">
+    <h1>お遊び俳句ゲーム<h1>
+    <h2>ゲームレベル選択</h2>
+    <!-- <div class="header_menu" style="text-align: right">
+    </div> -->
+</div>
+
+{% block contents %}
+{% endblock %}
+
+
+
+<div class="footer text-center">
+    <h3>俳句メニュー</h3>
+    <a href="{% url 'myhaiku:list' %}" class="link">俳句一覧を見る</a>
+</div>
+
+</body>
+</html>
+

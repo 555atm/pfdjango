@@ -28,6 +28,7 @@ urlpatterns = [
     path('top', views.MyhaikuTopView.as_view(), name="top"),
     path('gamelevel', views.MyhaikuGameLevelView.as_view(), name="gamelevel"),
     path('new', views.MyhaikuNewView.as_view(), name="new"),
+    path('confirm', views.MyhaikuConfirmView.as_view(), name="confirm"),
     path('list', views.MyhaikuListView.as_view(), name="list"),
     path('detail', views.MyhaikuDetailView.as_view(), name="detail"),
     # path('edit', views.MyhaikuEditView.as_view(), name="edit"),

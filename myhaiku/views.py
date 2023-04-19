@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.urls import reverse_lazy
 
 import random
+from myhaiku.func import * 
 
 
 ####### Create your views here. #######
@@ -26,55 +27,75 @@ class MyhaikuGameLevelView(View):
 
     def post(self, request, *args, **kwargs):
 
-        def getRandomHiragana():
-            # pass
-            hiragana = ["ぁ","あ","ぃ","い","ぅ","う","ぇ","え","ぉ","お",
-                "か","が","き","ぎ","く","ぐ","け","げ","こ","ご",
-                "さ","ざ","し","じ","す","ず","せ","ぜ","そ","ぞ",
-                "た","だ","ち","ぢ","っ","つ","づ","て","で","と","ど",
-                "な","に","ぬ","ね","の","は","ば","ぱ",
-                "ひ","び","ぴ","ふ","ぶ","ぷ","へ","べ","ぺ","ほ","ぼ","ぽ",
-                "ま","み","む","め","も","ゃ","や","ゅ","ゆ","ょ","よ",
-                "ら","り","る","れ","ろ","わ","を"]
-            random_str = random.choice(hiragana)
-            return random_str
+        # return HttpResponse("level xx")
 
         ##ユーザーが選択したゲームレベルに応じてランダム文字を生成し、top.htmlに返す
         gamelevel = request.POST.get('gamelevel')
+        print('--gamelevel--')
+        print(gamelevel)
+        print(type(gamelevel))
         #もしpostされてきたのがゲームレベル３なら、上・中・下それぞれのランダム文字を一つずつ生成して返す
-        if gamelevel == 3 :
-            # pass
+        if gamelevel == '3' :
+            # return HttpResponse("level3")
             request.session['kami_random'] = getRandomHiragana()
             request.session['naka_random'] = getRandomHiragana()
             request.session['shimo_random'] = getRandomHiragana()
 
             return render(self.request, self.template_name, {
                 # "login_user"       : login_user,
+                "gamelevel"              : gamelevel,
                 "kami_random"            : request.session['kami_random'],
                 "naka_random"            : request.session['naka_random'],
                 "shimo_random"            : request.session['shimo_random'],
             })
-          
+        
         #もしpostされてきたのがゲームレベル３なら、上・中・下それぞれのランダム文字を一つずつ生成して返す
-        if gamelevel == 1 :
-            pass
+        elif gamelevel == '1' :
+            # return HttpResponse("level1")
             request.session['kami_random'] = None
             request.session['naka_random'] = None
             request.session['shimo_random'] = None
 
             return render(self.request, self.template_name, {
                 # "login_user"       : login_user,
+                "gamelevel"              : gamelevel,
                 "kami_random"            : request.session['kami_random'],
                 "naka_random"            : request.session['naka_random'],
                 "shimo_random"            : request.session['shimo_random'],
             })
 
+        #def getRandomHiragana(): は func.pyに記載してある。
+
 
 class MyhaikuNewView(View):
-    #template_name = 'renx/top.html'
-    def get(self, request, *args, **kwargs):
-        #return render(request, template_name)
-        return render(request, "myhaiku/new.html")
+    template_name = 'myhaiku/new.html'
+    def post(self, request, *args, **kwargs):
+
+        #コメント
+
+        #コメント
+
+        return render(request, self.template_name, {
+                "kami_random"            : request.session['kami_random'],
+                "naka_random"            : request.session['naka_random'],
+                "shimo_random"            : request.session['shimo_random'],
+        })
+
+
+class MyhaikuConfirmView(View):
+    template_name = 'myhaiku/confirm.html'
+    def post(self, request, *args, **kwargs):
+
+        #コメント
+
+        #コメント
+
+        return render(request, self.template_name, {
+                "kami_random"            : request.session['kami_random'],
+                "naka_random"            : request.session['naka_random'],
+                "shimo_random"            : request.session['shimo_random'],
+        })
+
 
 class MyhaikuListView(View):
     template_name = 'myhaiku/list.html'
