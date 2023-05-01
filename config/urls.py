@@ -17,6 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from . import views
 from django.urls import path,include
+
+import debug_toolbar
+
+# import settings
+
+
+# 追加  '__debug__/'は他のURLに影響を及ぼさないならなんでも良い
+# if settings.DEBUG:
+#     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+
+
 #from config.views import index
 
 #from django.contrib import admin

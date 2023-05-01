@@ -2,7 +2,7 @@
 {% load django_bootstrap5 %}
 {% load mathfilters %}
 
-{% block main %}
+{% block contents %}
 
 
 <div class="answer_screen">
@@ -44,7 +44,7 @@
     */ -->
 
     
-    {% if monme >= number_of_questions %}
+    {% if monme == number_of_questions %}
         <div class="to_result">
             <form action="{% url 'myquiz:result' %}" method="get">
                 {% csrf_token %}

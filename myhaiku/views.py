@@ -16,7 +16,6 @@ from myhaiku.func import *
 ####### Create your views here. #######
 
 class MyhaikuTopView(View):
-    #template_name = 'renx/top.html'
     def get(self, request, *args, **kwargs):
         #return render(request, template_name)
         return render(request, "myhaiku/top.html")

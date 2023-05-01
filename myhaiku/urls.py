@@ -5,6 +5,9 @@ from django.urls import path
 #from renx.views import top
 from myhaiku import views
 
+from config import settings
+from django.urls import include
+import debug_toolbar 
 """config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -23,6 +26,7 @@ Including another URLconf
 
 app_name = 'myhaiku'
 
+# 追加  '__debug__/'は他のURLに影響を及ぼさないならなんでも良い
 
 urlpatterns = [
     path('top', views.MyhaikuTopView.as_view(), name="top"),
@@ -37,3 +41,6 @@ urlpatterns = [
     #path('', top, name='index'),
     #path('templates/', views.top),
 ]
+
+# if settings.DEBUG:
+#     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

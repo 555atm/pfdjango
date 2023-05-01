@@ -1,3 +1,4 @@
 .env
 kojin-memo.rd
 .DS_Store
+django_sample.sql

@@ -11,14 +11,56 @@ import random
 from django.urls  import reverse
 # Create your views here.
 from django.contrib import messages
+from django.db.models import Count
 
 class MyquizTopView(View):
     template_name = 'myquiz/top.html'
     def get(self, request, *args, **kwargs):
         #return render(request, template_name)
         genres = Genre.objects.all()
+
+        #「ジャンル名：クイズ数」の表を取得
+        # (つまり、クイズが、各ジャンルごとに何問あるかという行を表にするクエリ。）
+        # SELECT myquiz_genre.name, COUNT(*) as count FROM myquiz_quiz INNER JOIN myquiz_genre ON myquiz_quiz.genre_id = myquiz_genre.id GROUP BY genre_id;
+        # genre_question_counts = Quiz.objects.all().select_related(Genre.name).annotate(count=Count('genre_id'))
+
+        # result = Genre.objects.annotate(count=Count('name')).values('name', 'count')
+        # result = Quiz.objects.annotate(count=Count('genre_id')).select_related('genre')
+        # print("--result--")
+        # print(result)
+
+
+        # ▼▼▼▼惜しい
+
+        # ▼TypeError at /myquiz/top 'int' object is not iterable　というエラー
+        # genre_question_counts = Quiz.objects.select_related('genre').count()
+
+        # ▼全行表示されてしまう（カウントが全て１）　
+        # genre_question_counts = Quiz.objects.select_related('genre').annotate(count=Count('genre_id'))
+
+        # genre_question_counts = Quiz.objects.select_related('genre').all().annotate(count=Count('genre_id'))
+        # genre_question_counts = Quiz.objects.select_related('genre').filter('genre_id').annotate(count=Count('genre_id'))
+
+        # ▼惜しい
+        # genre_question_counts = Quiz.objects.values('genre').annotate(count=Count('id'))
+        # count = genre_question_counts.select_related(Genre)
+
+        # genre_question_counts = Quiz.objects.values_list('genre').annotate(count=Count('id'))
+        # genre_question_counts = Quiz.objects.select_related('genre').annotate(count=Count('id'))
+        # genre_question_counts = Quiz.objects.select_related(Genre).count()
+        # genre_question_counts = Genre.objects.annotate(num_questions=Count('genre'))
+        # print('--genre_question_counts--')
+        # print(genre_question_counts)
+        # for item in genre_question_counts:
+            # print(item['genre'],item['count'])
+            # print(item[0],item[1])
+        # print('--count--')
+        # print(count)
+
+
         return render(request, self.template_name, {
             "genres" : genres,
+            # "genre_question_counts" : genre_question_counts,
         })
 
 
@@ -99,8 +141,20 @@ class MyquizQuizView(View):
 
             # メニューが2なら、選択されたクイズジャンルのidカラムを取得
             elif menu == 2:
-                quiz_ids = Quiz.objects.filter(field="genre").values("id")
+                selected_genre = request.POST['selected_genre']
+
+                print("--selected_genre--")
+                print(selected_genre)
+
+                quiz_ids0 = Quiz.objects.filter(genre=selected_genre)
+                print("--quiz_ids0--")
+                print(quiz_ids0)
+
+
+                quiz_ids = Quiz.objects.filter(genre=selected_genre).values("id")
                 # quiz_ids = Quiz.objects.filter(field="genre").values("id")[quiz_ammount]
+                print("--quiz_ids--")
+                print(quiz_ids)
 
             #出題するクイズidのリストの原型（つまりdictがたくさん入ったリスト）を作成する
             for quiz_id in quiz_ids:
@@ -204,7 +258,7 @@ class MyquizAnswerView(View):
         print(request.session)
         print("--request.GET--")
         print(request.POST)
-        monme = request.POST['monme']
+        monme = int(request.POST['monme'])
         number_of_questions = request.session['number_of_questions']
         mondai_id = request.POST['mondai_id']
         correct = int(request.POST['correct'])
@@ -232,6 +286,12 @@ class MyquizAnswerView(View):
         else:
             #不正解と返す
             is_correct = False
+
+        print("--monte--")
+        print(type(monme))
+        print("--number_of_questions--")
+        print(type(number_of_questions))
+
 
         return render(request, self.template_name, {
             "user_choice" : user_choice,
@@ -332,7 +392,7 @@ class MyquizEditView(View):
         print(request.POST)
 
         # ## フォーム送信先
-        send_url = reverse('myquiz:top', kwargs={'pk': quiz.id})
+        # send_url = reverse('myquiz:top', kwargs={'pk': quiz.id})
 
         ## フォームに値を渡す
         form = QuizForm(request.POST, instance=quiz)
@@ -352,7 +412,7 @@ class MyquizEditView(View):
                 "login_user"        : login_user,
                 "quiz": quiz,
                 "form" : form,
-                "send_url" : send_url,
+                # "send_url" : send_url,
             })
 
 
