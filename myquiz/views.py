@@ -146,11 +146,12 @@ class MyquizQuizView(View):
                 print("--selected_genre--")
                 print(selected_genre)
 
-                quiz_ids0 = Quiz.objects.filter(genre=selected_genre)
-                print("--quiz_ids0--")
-                print(quiz_ids0)
+                # quiz_ids0 = Quiz.objects.filter(genre=selected_genre)
+                # print("--quiz_ids0--")
+                # print(quiz_ids0)
 
 
+                quiz_ids = Quiz.objects.filter(genre=selected_genre)
                 quiz_ids = Quiz.objects.filter(genre=selected_genre).values("id")
                 # quiz_ids = Quiz.objects.filter(field="genre").values("id")[quiz_ammount]
                 print("--quiz_ids--")

@@ -55,7 +55,7 @@
         <form action="{% url 'myquiz:quiz' %}" method="post">
             <select name="selected_genre" class="selected_genre">
                 {% for genre in genres %}
-                <option value="{{genre.name}}">{{genre.name}}(x問)</option>
+                <option value="{{genre.id}}">{{genre.name}}(x問)</option>
                 {% endfor %}
                 <!-- {% for item in genre_question_counts %}
                     <option value="{{ item.genre }}">{{ item.genre }} / {{ item.count }}</option>
