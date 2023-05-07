@@ -13,11 +13,13 @@
 
 {% block contents %}
 
-    <h2 class="m-2">メニュー</h2>
-    <p class="m-3"><a href="{% url 'mybbs:top' %}">掲示板</a></p>
-    <p class="m-3"><a href="{% url 'myquiz:top' %}">クイズ</a></p>
-    <p class="m-3"><a href="{% url 'myhaiku:top' %}">俳句</a></p>
-    <p class="m-3"><a href="{% url 'renx:top' %}">模写コーディング</a></p>
+    <div class="text-center">
+        <h2 class="m-2">メニュー</h2>
+        <p class="m-3"><a href="{% url 'mybbs:top' %}">掲示板</a></p>
+        <p class="m-3"><a href="{% url 'myquiz:top' %}">クイズ</a></p>
+        <p class="m-3"><a href="{% url 'myhaiku:top' %}">俳句</a></p>
+        <p class="m-3"><a href="{% url 'renx:top' %}">模写コーディング</a></p>
+    </div>
 
 {% endblock %}
 {% comment %} </body>

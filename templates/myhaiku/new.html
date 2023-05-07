@@ -4,6 +4,8 @@
 
 {% block contents %}
 
+{% include "myhaiku/_header.html" %}
+
     <div class="container">
         <div class="contents">
 
@@ -12,7 +14,7 @@
             <p>【課題文字】</p>
 
             {% if kami_random == null %}
-                <p>上の句 : 条件なし。</p>';
+                <p>上の句 : 条件なし。</p>
             {% elif kami_random != null %}
                 <p>上の句のどこかに 『' {{ kami_random }} '』を最低1回含めること。</p>
             {% else %}
@@ -20,7 +22,7 @@
             {% endif %}
 
             {% if naka_random == null %}
-                <p>中の句 : 条件なし。</p>';
+                <p>中の句 : 条件なし。</p>
             {% elif naka_random != null %}
                 <p>中の句のどこかに 『' {{ naka_random }} '』を最低1回含めること。</p>
             {% else %}
@@ -29,7 +31,7 @@
 
 
             {% if shimo_random == null %}
-                <p>下の句 : 条件なし。</p>';
+                <p>下の句 : 条件なし。</p>
             {% elif shimo_random != null %}
                 <p>下の句のどこかに 『' {{ shimo_random }} '』を最低1回含めること。</p>
             {% else %}
@@ -74,12 +76,7 @@
         </div>
     </div>
 
-    <div class="footer" style="text-align: right">
-        <a href="gamelevel.php" class="btn">前の画面に戻る</a>
-        <a href="../menu.php" class="btn">TOPへ</a>
-        <a href="../logout.php" class="btn">ログアウト</a>
-    </div>
-
+    {% include "myhaiku/_footer.html" %}
 
 {% endblock %}
 

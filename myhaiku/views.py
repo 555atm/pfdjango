@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views import View
 
 from myhaiku.models import *
+from myhaiku.forms import *
 ## view側でurls.pyの名前を仕様しurl逆引きのために使用
 from django.urls import reverse
 ## クラスベースview以下でurlを遅延評価し逆引きするためにインポート
@@ -69,6 +70,10 @@ class MyhaikuGameLevelView(View):
 class MyhaikuNewView(View):
     template_name = 'myhaiku/new.html'
     def post(self, request, *args, **kwargs):
+
+        # postされた内容をformでエラーないか確認
+        form = HaikuForm(request.POST)
+
 
         #エラーならpostされた句を再度newに表示
 
