@@ -70,19 +70,33 @@ class MyhaikuNewView(View):
     template_name = 'myhaiku/new.html'
     def post(self, request, *args, **kwargs):
 
-        #コメント
+        #エラーならpostされた句を再度newに表示
 
-        #コメント
+        #エラーなければ、confirm画面を表示
 
         return render(request, self.template_name, {
                 "kami_random"            : request.session['kami_random'],
-                "naka_random"            : request.session['naka_random'],
-                "shimo_random"            : request.session['shimo_random'],
         })
 
 
 class MyhaikuConfirmView(View):
     template_name = 'myhaiku/confirm.html'
+    def post(self, request, *args, **kwargs):
+
+        #投稿された句を表示
+
+        #修正したければ修正
+
+        #修正不要なら完了画面へ遷移
+
+        return render(request, self.template_name, {
+                "kami_random"            : request.session['kami_random'],
+        })
+
+
+
+class MyhaikuDoneView(View):
+    template_name = 'myhaiku/done.html'
     def post(self, request, *args, **kwargs):
 
         #コメント
@@ -94,6 +108,7 @@ class MyhaikuConfirmView(View):
                 "naka_random"            : request.session['naka_random'],
                 "shimo_random"            : request.session['shimo_random'],
         })
+
 
 
 class MyhaikuListView(View):

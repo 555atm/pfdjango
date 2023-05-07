@@ -1,0 +1,81 @@
+
+{% extends "_base.html" %}
+{% load django_bootstrap5 %}
+
+{% block contents %}
+
+<div class="wrap">
+    <div class="header">
+        <h1>お遊び俳句ゲーム<h1>
+        <h1>投稿完了<h1>	
+    </div>
+
+    <div class="norules">
+        <br>
+        <br>
+        <br>
+        <br>
+
+    <?php
+        // 投稿をDBに記録する
+        if (!empty($_SESSION)) {
+            if ($_SESSION['kamigo'] != '') {
+                $haikus = $db->prepare('INSERT INTO haiku SET kamigo=?, nakashichi=?, shimogo=?, kami_random=?, naka_random=?,
+                shimo_random=?, member_id=?, created=NOW()');
+                $haikus->execute(array(
+                    $_SESSION['kamigo'],
+                    $_SESSION['nakashichi'],
+                    $_SESSION['shimogo'],
+                    $_SESSION['kami_random'],
+                    $_SESSION['naka_random'],
+                    $_SESSION['shimo_random'],
+                    $_SESSION['id']
+                ));
+                echo '<p>投稿を完了しました。</p>';
+                // unset($_SESSION[’value’]);だと動くけど『今後良くない』とwarning出てしまうので、
+                //  $_SESSION[’value’] = array(); の形に修正した。
+                $_SESSION['kami_random'] = array();
+                $_SESSION['naka_random'] = array();
+                $_SESSION['shimo_random'] = array();
+                $_SESSION['kamigo'] = null;
+                $_SESSION['nakashichi'] = null;
+                $_SESSION['shimogo'] = null;
+                $_SESSION['gamelevel'] = null;
+            } else {
+                echo '<p>投稿内容が空です。やり直してください</p>';
+                echo '<a href=”gamelevel.php” class="btn">メニューへ戻る</a>';
+            }
+        }
+    ?>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </div>
+</div>
+
+<div class="header_menu" style="text-align: right">
+    <a href="../menu.php" class="btn">TOPへ</a>
+    <a href="logout.php" class="btn">ログアウト</a>
+</div>
+
+
+
+{% endblock %}
+
+</body>
+</html>
+

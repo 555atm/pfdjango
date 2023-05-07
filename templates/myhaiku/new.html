@@ -14,7 +14,7 @@
             {% if kami_random == null %}
                 <p>上の句 : 条件なし。</p>';
             {% elif kami_random != null %}
-                <p>上の句のどこかに 『' {{ kami_random }} '』を最低1回含めること。</p>';
+                <p>上の句のどこかに 『' {{ kami_random }} '』を最低1回含めること。</p>
             {% else %}
                 <p>error! something wrong!</p>
             {% endif %}
@@ -22,7 +22,7 @@
             {% if naka_random == null %}
                 <p>中の句 : 条件なし。</p>';
             {% elif naka_random != null %}
-                <p>中の句のどこかに 『' {{ naka_random }} '』を最低1回含めること。</p>';
+                <p>中の句のどこかに 『' {{ naka_random }} '』を最低1回含めること。</p>
             {% else %}
                 <p>error! something wrong!</p>
             {% endif %}
@@ -31,7 +31,7 @@
             {% if shimo_random == null %}
                 <p>下の句 : 条件なし。</p>';
             {% elif shimo_random != null %}
-                <p>下の句のどこかに 『' {{ shimo_random }} '』を最低1回含めること。</p>';
+                <p>下の句のどこかに 『' {{ shimo_random }} '』を最低1回含めること。</p>
             {% else %}
                 <p>error! something wrong!</p>
             {% endif %}
@@ -41,22 +41,22 @@
 
             <form action="{% url 'myhaiku:confirm' %}" method="post">
                 <label for="kamigo">上の句:</label>
-                    <input type="text" id="kamigo" name="kamigo" size="30" value="kami_go"><br>
+                    <input type="text" id="kamigo" name="kamigo" size="30" value="{{ kami_go }}"><br>
                         //上の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
 
                 <br>
-                <label for="nakashichi">　　　 中の句:</label>
-                    <input type="text" id="nakashichi" name="nakashichi" size="40" value="naka_shichi"><br> 
+                <label for="nakashichi">中の句:</label>
+                    <input type="text" id="nakashichi" name="nakashichi" size="40" value="{{ naka_shichi }}"><br> 
                         //中の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
                 
                 <br>
                 <label for="shomogo">下の句:</label>  
-                    <input type="text" id="shimogo" name="shimogo"  size="30" value="shimo_go">
+                    <input type="text" id="shimogo" name="shimogo"  size="30" value="{{ shimo_go }}"><br>
                         //下の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
                 <br>
 
                 <input type="hidden" name="done" value="1">
-                {{ csrf_token }}
+                {% csrf_token %}
                 <input type="submit" value="投稿内容の確認">
             </form>
             <br>
