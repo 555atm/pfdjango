@@ -81,6 +81,8 @@ class MyhaikuNewView(View):
 
         return render(request, self.template_name, {
                 "kami_random"            : request.session['kami_random'],
+                "naka_random"            : request.session['naka_random'],
+                "shimo_random"            : request.session['shimo_random'],
         })
 
 

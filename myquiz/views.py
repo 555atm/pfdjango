@@ -42,15 +42,27 @@ class MyquizTopView(View):
         # genre_question_counts = Quiz.objects.select_related('genre').filter('genre_id').annotate(count=Count('genre_id'))
 
         # ▼惜しい
-        # genre_question_counts = Quiz.objects.values('genre').annotate(count=Count('id'))
+        # genre_question_counts = Quiz.objects.values('genre.name').annotate(count=Count('id'))
+        # genre_question_counts = Quiz.objects.values().annotate(count=Count('id'))
         # count = genre_question_counts.select_related(Genre)
 
         # genre_question_counts = Quiz.objects.values_list('genre').annotate(count=Count('id'))
         # genre_question_counts = Quiz.objects.select_related('genre').annotate(count=Count('id'))
         # genre_question_counts = Quiz.objects.select_related(Genre).count()
         # genre_question_counts = Genre.objects.annotate(num_questions=Count('genre'))
-        # print('--genre_question_counts--')
-        # print(genre_question_counts)
+
+        # genre_question_counts = Genre.objects.raw("SELECT myquiz_genre.id, name, COUNT(*) as count FROM myquiz_quiz INNER JOIN myquiz_genre ON myquiz_quiz.genre_id = myquiz_genre.id GROUP BY genre_id;")
+        # genre_question_counts = Quiz.objects.raw('SELECT myquiz_genre.name, COUNT(*) as count FROM myquiz_quiz INNER JOIN myquiz_genre ON myquiz_quiz.genre_id = myquiz_genre.id GROUP BY genre_id;')
+        # ↑　上記raw実行するとエラー：　　Raw query must include the primary key 　→よって、「Genre.objects.raw("SELECT myquiz_genre.id」というふうに、Genreモデルを主語にしないとなぜか動かない、というのが現状の結論。
+        # ↓　raw()だとSQLインジェクション怖いので、やはりORMで書きたいが、type object 'Quiz' has no attribute 'split'と怒られる
+        genre_question_counts = Genre.objects.annotate(count=Count('genre')).values('id', 'name', 'count')
+        # genre_question_counts = Genre.objects.select_related(Quiz).annotate(count=Count('genre')).values('id', 'name', 'count')
+
+
+        print('--genre_question_counts--')
+        print(genre_question_counts)
+        print('--.queryでSQLがN+1してないか確認--')
+        # print(Genre.objects.raw("SELECT myquiz_genre.id, name, COUNT(*) as count FROM myquiz_quiz INNER JOIN myquiz_genre ON myquiz_quiz.genre_id = myquiz_genre.id GROUP BY genre_id;").query)
         # for item in genre_question_counts:
             # print(item['genre'],item['count'])
             # print(item[0],item[1])
@@ -60,7 +72,8 @@ class MyquizTopView(View):
 
         return render(request, self.template_name, {
             "genres" : genres,
-            # "genre_question_counts" : genre_question_counts,
+            "genre_question_counts" : genre_question_counts,
+            # "count" : count,
         })
 
 
