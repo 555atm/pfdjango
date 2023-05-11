@@ -21,16 +21,16 @@
     {% block extraheader %}{% endblock %}
 </head>
 
-<!-- {% if 'quiz' in request.path %} 
-    <body class="bg" background="{% static 'myhaiku/img/bamboo4.jpg' %}">
+<!-- <body> -->
+{% if 'quiz' in request.path %} 
+    <body class="bg" background="{% static 'images/KAZUKIhgfdrfgh.jpg' %}">
 {% elif 'haiku' in request.path %} background="" 
-    <body background="{% static 'myhaiku/img/bamboo4.jpg' %}">
+    <body background="{% static 'images/bamboo4.jpg' %}">
 {% else %}
-    <body>
-{% endif %} -->
+    <body background="{% static 'images/animal171013022.jpg' %}">
+{% endif %}
 
 
-<body>
 
 
     <nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark">
