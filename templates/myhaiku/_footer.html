@@ -1,12 +1,14 @@
 
 {% if 'gamelevel' in request.path %} 
     <div class="footer text-center">
-        <h3>俳句メニュー</h3>
+        <h4>俳句メニュー</h4>
         <a href="{% url 'myhaiku:list' %}" class="link">俳句一覧を見る</a>
     </div>
 
 {% elif 'new' in request.path %} 
     <div class="footer text-center">
+        <h4>俳句メニュー</h4>
+        <a href="{% url 'myhaiku:list' %}" class="link">俳句一覧を見る</a>
         <a href="{% url 'myhaiku:gamelevel' %}" class="btn">前の画面に戻る</a>
     </div>
 
@@ -14,7 +16,7 @@
 {% elif 'confirm' in request.path %} 
 
     <div class="footer text-center">
-        <h3>俳句メニュー</h3>
+        <h4>俳句メニュー</h4>
         <a href="{% url 'myhaiku:list' %}" class="link">俳句一覧を見る</a>
     </div>
 

@@ -1,0 +1,7 @@
+.bg_img {
+    background-image: url(..images/glad.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+    /* opacity: 0.5; */
+}

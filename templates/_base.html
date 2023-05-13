@@ -6,58 +6,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPortforio</title>
+    <title>MyPortfolio</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" href="{% static 'common/style.css' %}">
-
-    {% if 'myhaiku' in request.path %} 
-        <link rel="stylesheet" href="{% static 'myhaiku/css/haiku.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    {% if 'myhaiku' in request.path %}
+        <link rel="stylesheet" href="{% static 'css/haiku.css' %}">
+        <script src="{% static 'jss/haiku.js' %}"></script>
     {% elif 'myquiz' in request.path %} 
-        <link rel="stylesheet" href="{% static 'myquiz/css/quiz.css' %}">
+        <link rel="stylesheet" href="{% static '/css/quiz.css' %}">
+        <script src="{% static 'jss/quiz.js' %}"></script>
+    {% elif 'mybbs' in request.path %} 
+        <link rel="stylesheet" href="{% static 'css/bbs.css' %}">
+        <script src="{% static 'jss/bbs.js' %}"></script>
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/other.css' %}">
+        <script src="{% static 'jss/other.js' %}"></script>
     {% endif %}
 
-    <!-- <link rel="stylesheet" href="{% static 'myhaiku/css/haiku.css' %}"> -->
     {% block extraheader %}{% endblock %}
 </head>
 
-<!-- <body> -->
-{% if 'quiz' in request.path %} 
-    <body class="bg" background="{% static 'images/KAZUKIhgfdrfgh.jpg' %}">
+<body class="bg_img">
+
+<!-- {% if 'quiz' in request.path %} 
+    <body background="{% static 'images/KAZUKIhgfdrfgh.jpg' %}">
 {% elif 'haiku' in request.path %} background="" 
     <body background="{% static 'images/bamboo4.jpg' %}">
 {% else %}
     <body background="{% static 'images/animal171013022.jpg' %}">
-{% endif %}
-
-
+{% endif %} -->
 
 
     <nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark">
     <div class="container justify-content-between">
         <a href="/" class="navbar-brand test_test_test">私のポートフォリオ</a>
-        {% if user.is_authenticated %}
-        <p class="m-3" style="color: gray;">{{user.get_username }}さん、ようこそ！</p>
-        {% endif %}
+            {% if user.is_authenticated %}
+            <p class="m-3" style="color: gray;">{{user.get_username }}さん、ようこそ！</p>
+            {% endif %}
     </div>
     <ul class="navbar-nav mr-md-2">
         {% if user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link" href="{% url '' %}">メニューへ</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'mybbs:top' %}">掲示板へ</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'myquiz:top' %}">３択クイズへ</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'myhaiku:top' %}">俳句ゲームへ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url '' %}">TOP</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'mybbs:top' %}">掲示板</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'myquiz:top' %}">３択クイズ</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'myhaiku:top' %}">俳句ゲーム</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">ログアウト</a></li>
+        <li class="nav-item"><a class="nav-link user_info" href="{% url '' %}"><img src="{% static 'images/人物アイコン.svg' %}" width="30" height="30"/>ユーザー情報</a></li>
+
         {% else %}
         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ログイン</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">ユーザー登録</a></li>
+        
         {% endif %}
     </ul>
-</nav>
-<main>
-    <div class="container">
-        {% block contents  %}{% endblock %}
-    </div>
-</main>
+    </nav>
+    <main>
+        <div class="container">
+            {% block contents  %}{% endblock %}
+        </div>
+    </main>
 </body>
 </html>
 

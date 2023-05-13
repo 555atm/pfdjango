@@ -1,8 +1,12 @@
 
 <div class="header container-fluid text-center">
-    <h1>お遊び俳句ゲーム<h1>
-        <h2>ゲームレベル選択</h2>
-        <!-- <div class="header_menu" style="text-align: right">
-        </div> -->
+    <h2>俳句ゲーム<h1>
+        {% if 'gamelevel' in request.path %}
+            <h4>ゲームレベル選択</h4>
+        {% elif 'new' in request.path %}
+            <h4>俳句を読んでください</h4>
+        {% elif 'confirm' in request.path %}
+            <h4>投稿内容の確認</h4>
+        {% endif %}
 </div>
     

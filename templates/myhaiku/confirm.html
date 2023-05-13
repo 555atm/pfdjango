@@ -4,48 +4,38 @@
 
 {% block contents %}
 
+    <div class="wrap">
+        {% include "myhaiku/_header.html" %}
+            <div class="norules">
+                <div class="input_confirmation">
+                    <p>【確認】以下の内容でよろしければ投稿ボタンを押してください。</p>
+                    <div class="tategaki">
+                        {{ kami_go }}
+                        {{ naka_shichi }}
+                        {{ shimo_go }}
+                        
+                    </div>
+                    <br>
 
-<div class="wrap">
-    <div class="header">
-      <h1>お遊び俳句ゲーム<h1>
-      <h2>投稿内容の確認<h2>
+                    <form action="{% url 'myhaiku:new' %}" method="post">
+                    <input type="hidden" name="modify" value="1">
+                    <input type="hidden" name="kamigo" value="{{ kami_go }}">
+                    <input type="hidden" name="nakashichi" value="{{ naka_shichi }}">
+                    <input type="hidden" name="shimogo" value="{{ shimo_go }}">
+                    <input type="submit" value="投稿を修正する">
+                    </form>
+
+                    
+                    <form action="{% url 'myhaiku:new' %}" method="post">
+                    <input type="hidden" name="kamigo" value="<?php $_SESSION['kamigo'] ?>">
+                    <input type="hidden" name="nakashichi" value="<?php $_SESSION['nakashichi'] ?>">
+                    <input type="hidden" name="shimogo" value="<?php $_SESSION['shimogo'] ?>">
+                    <input type="submit" value="投稿" class="btn">
+                    </form>
+                </div>
+            </div>
+        {% include "myhaiku/_footer.html" %}
     </div>
-
-    <div class="norules">
-
-      <div class="input_confirmation">
-        <p>【確認】以下の内容でよろしければ投稿ボタンを押してください。</p>
-        <div class="tategaki">
-            {{ kami_go }}
-            {{ naka_shichi }}
-            {{ shimo_go }}
-            
-        </div>
-        <br>
-
-        <form action="{% url 'myhaiku:new' %}" method="post">
-          <input type="hidden" name="modify" value="1">
-          <input type="hidden" name="kamigo" value="{{ kami_go }}">
-          <input type="hidden" name="nakashichi" value="{{ naka_shichi }}">
-          <input type="hidden" name="shimogo" value="{{ shimo_go }}">
-          <input type="submit" value="投稿を修正する">
-        </form>
-
-        
-        <form action="{% url 'myhaiku:new' %}" method="post">
-          <input type="hidden" name="kamigo" value="<?php $_SESSION['kamigo'] ?>">
-          <input type="hidden" name="nakashichi" value="<?php $_SESSION['nakashichi'] ?>">
-          <input type="hidden" name="shimogo" value="<?php $_SESSION['shimogo'] ?>">
-          <input type="submit" value="投稿" class="btn">
-        </form>
-      </div>
-    </div>
-
-    <div class="header_menu" style="text-align: right">
-        <a href="post.php" class="btn">前の画面に戻る</a>
-        <a href="../menu.php" class="btn">TOPへ</a>
-        <a href="logout.php" class="btn">ログアウト</a>
-</div>
 
 {% endblock %}
 

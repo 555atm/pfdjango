@@ -1,0 +1,47 @@
+
+.bg_img {
+    background-image: url(../images/bamboo4.jpg);
+    background-color: rgba(8, 185, 52, 0.8);
+    background-repeat: repeat;
+    background-position: top;
+    background-size: cover;
+    /* opacity: 0.9; */
+}
+
+.container {
+    display: flex;
+}
+
+.wrap {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), transparent);
+    color: #000000;
+}
+
+.gamelevel {
+    border: 1px solid #999999;
+}
+
+.rules {
+    border: 1px solid #999999;
+    white-space: wrap;
+}
+
+.selected_gamelevel {
+    border: 1px solid #999999;
+}
+
+.haiku_input {
+    border: 1px solid #999999;
+}
+
+.header {
+    background-color: #6b8e23;
+    /* background: linear-gradient(to bottom, rgba(15, 177, 40, 0.9), transparent); */
+    color: #e0d9d9;
+}
+
+.footer {
+    background-color: #6b8e23;
+    /* background: linear-gradient(to bottom, rgba(15, 177, 40, 0.9), transparent); */
+    color: #e0d9d9;
+}
