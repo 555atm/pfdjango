@@ -9,21 +9,63 @@
         
         {% include "myhaiku/_header.html" %}
 
-        <div class="container contents">
-            <div class="gamelevel m-4">
-                <p>【STEP1】ゲームレベルを選択してください</p>
-                    <form action="{% url 'myhaiku:gamelevel' %}" method="post">
-                        <label><input type="radio" name="gamelevel" value="1"> [Lv1] 課題文字なし </label><br>
-                        <label><input type="radio" name="gamelevel" value="3" checked> [Lv3] 課題文字: 上・中・下の句にそれぞれ1文字 ★オススメ！</label><br>
-                        <input type="hidden" name="nogamelevel" value="nogamelevel">
+        <div class="container contents m-3">
+            <div class="step1and2">
+                <div class="gamelevel m-2">
+                    <p>【STEP1】ゲームレベルを選択してください</p>
+                        <form action="{% url 'myhaiku:gamelevel' %}" method="post" class="m-3">
+                            <label><input type="radio" name="gamelevel" value="1"> [Lv1] 課題文字なし </label><br>
+                            <label><input type="radio" name="gamelevel" value="3" checked> [Lv3] 課題文字: 上・中・下の句にそれぞれ1文字 　★Lv3がオススメです</label><br>
+                            <input type="hidden" name="nogamelevel" value="nogamelevel">
+                            <br>
+                            <label>  </label>
+                            {% csrf_token %}
+                            <input type="submit" value="選択">
+                        </form><br>
+                </div>
+                <div class="selected_gamelevel m-2">
+                    <p>【STEP2】課題文字の確認</p>
+
+                    {% if gamelevel == '1' %}
+                        <ul class="m-2">
+                            <li>選択したゲームレベル：1</li>
+                            <li>課題の文字は以下となります。ゲームを開始しますか？</li>
+                            <ul>
+                                <li>上の句：条件なし</li>
+                                <li>中の句：条件なし</li>
+                                <li>下の句：条件なし</li>
+                            </ul>
+                        </ul>
+                    {% else %}
+                        <p>まだゲームレベルが選択されていません。</p>
+                    {% endif %}
+
+                    {% if gamelevel == '3' %}
+                        <ul class="m-2">
+                            <li>選択したゲームレベル：3</li>
+                            <li>課題の文字は以下となります。ゲームを開始しますか？</li>
+                            <ul>
+                                <li>上の句：『' . {{ kami_random }} . '』を含めること。</li>
+                                <li>中の句：『' . {{ naka_random }} . '』を含めること。</li>
+                                <li>下の句：『' . {{ shimo_random }} . '』を含めること。</li>
+                            </ul>
+                        </ul>
+                    {% else %}
+                        <p>まだゲームレベルが選択されていません。</p>
+                    {% endif %}
+
+                    <form action="{% url 'myhaiku:new' %}" method="post" class="m-4">
+                        <!-- <input type="hidden" name="$subChar[]" value="$subChar[]"> -->
+                        <label></label>
                         <br>
-                        <label>  </label>
+                        <input type="hidden" name="start" value="1">
                         {% csrf_token %}
-                        <input type="submit" value="選択">
-                    </form><br>
+                        <input type="submit" value="ゲーム開始">
+                    </form>
+                </div>
             </div>
             <div class="rules m-4">
-                <p>【基本ルールの説明】</p>
+                <p>　--- 基本ルールの説明 ---</p>
                 <p>　STEP1 ゲームレベルを選択する</p>
                 <p>　STEP2 課題文字の確認　→ ゲーム開始ボタンを押す</p>
                 <p>　STEP3 俳句の投稿</p>
@@ -36,41 +78,7 @@
                 </ul>
             </div>
         </div>
-        <div class="selected_gamelevel">
-            <p>【STEP2】課題文字の確認</p>
-            {% if gamelevel == '1' %}
-                <p>選択したゲームレベル：1</p>
-                <p>課題の文字は以下となります。ゲームを開始しますか？</p>
-                <ul>
-                    <li>上の句：条件なし</li>
-                    <li>中の句：条件なし</li>
-                    <li>下の句：条件なし</li>
-                </ul>
-            {% endif %}
 
-            {% if gamelevel == '3' %}
-                <p>選択したゲームレベル：3</p>
-                <p>課題の文字は以下となります。ゲームを開始しますか？</p>
-                <ul>
-                    <li>上の句：『' . {{ kami_random }} . '』を含めること。</li>
-                    <li>中の句：『' . {{ naka_random }} . '』を含めること。</li>
-                    <li>下の句：『' . {{ shimo_random }} . '』を含めること。</li>
-                </ul>
-            {% else %}
-                <p>まだゲームレベルが選択されていません。</p>
-            {% endif %}
-        </div>
-
-        <div>
-            <form action="{% url 'myhaiku:new' %}" method="post">
-                <!-- <input type="hidden" name="$subChar[]" value="$subChar[]"> -->
-                <label></label>
-                <br>
-                <input type="hidden" name="start" value="1">
-                {% csrf_token %}
-                <input type="submit" value="ゲーム開始">
-            </form>
-        </div>
     {% include "myhaiku/_footer.html" %}
     </div>
 

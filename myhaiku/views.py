@@ -74,16 +74,32 @@ class MyhaikuNewView(View):
         # postされた内容をformでエラーないか確認
         form = HaikuForm(request.POST)
 
+        #エラーなければ、confirm画面を表示
+        if form.is_valid:
+            form.save
+            kami_go = Haiku.kaminoku
+            naka_shichi = Haiku.nakanoku
+            shimo_go = Haiku.shimonoku
+
+            return render(request, self.template_name, {
+                    "kami_random"            : request.session['kami_random'],
+                    "naka_random"            : request.session['naka_random'],
+                    "shimo_random"            : request.session['shimo_random'],
+                    "kami_go"            : kami_go,
+                    "naka_shichi"            : naka_shichi,
+                    "shimo_go"            : shimo_go,
+            })
 
         #エラーならpostされた句を再度newに表示
-
-        #エラーなければ、confirm画面を表示
-
-        return render(request, self.template_name, {
-                "kami_random"            : request.session['kami_random'],
-                "naka_random"            : request.session['naka_random'],
-                "shimo_random"            : request.session['shimo_random'],
-        })
+        else:
+            return render(request, self.template_name, {
+                    "kami_random"            : request.session['kami_random'],
+                    "naka_random"            : request.session['naka_random'],
+                    "shimo_random"            : request.session['shimo_random'],
+                    "kami_go"            : kami_go,
+                    "naka_shichi"            : naka_shichi,
+                    "shimo_go"            : shimo_go,
+            })
 
 
 class MyhaikuConfirmView(View):

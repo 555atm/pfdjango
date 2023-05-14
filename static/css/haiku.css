@@ -17,18 +17,26 @@
     color: #000000;
 }
 
+
+.step1and2 {
+    border: 1px solid #999999;
+    flex: 1;
+}
+
 .gamelevel {
+    border: 1px solid #999999;
+}
+
+.selected_gamelevel {
     border: 1px solid #999999;
 }
 
 .rules {
     border: 1px solid #999999;
     white-space: wrap;
+    flex: 1;
 }
 
-.selected_gamelevel {
-    border: 1px solid #999999;
-}
 
 .haiku_input {
     border: 1px solid #999999;
@@ -37,11 +45,11 @@
 .header {
     background-color: #6b8e23;
     /* background: linear-gradient(to bottom, rgba(15, 177, 40, 0.9), transparent); */
-    color: #e0d9d9;
+    color: #000000;
 }
 
 .footer {
     background-color: #6b8e23;
     /* background: linear-gradient(to bottom, rgba(15, 177, 40, 0.9), transparent); */
-    color: #e0d9d9;
+    color: #000000;
 }

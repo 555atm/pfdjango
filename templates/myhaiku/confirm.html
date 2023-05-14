@@ -18,11 +18,12 @@
                     <br>
 
                     <form action="{% url 'myhaiku:new' %}" method="post">
-                    <input type="hidden" name="modify" value="1">
-                    <input type="hidden" name="kamigo" value="{{ kami_go }}">
-                    <input type="hidden" name="nakashichi" value="{{ naka_shichi }}">
-                    <input type="hidden" name="shimogo" value="{{ shimo_go }}">
-                    <input type="submit" value="投稿を修正する">
+                        <input type="hidden" name="modify" value="1">
+                        <input type="hidden" name="kamigo" value="{{ kami_go }}">
+                        <input type="hidden" name="nakashichi" value="{{ naka_shichi }}">
+                        <input type="hidden" name="shimogo" value="{{ shimo_go }}">
+                        {% csrf_token %}
+                        <input type="submit" value="投稿を修正する">
                     </form>
 
                     
