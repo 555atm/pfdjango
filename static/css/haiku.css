@@ -20,7 +20,7 @@
 
 .step1and2 {
     border: 1px solid #999999;
-    flex: 1;
+    flex: 3;
 }
 
 .gamelevel {
@@ -34,12 +34,13 @@
 .rules {
     border: 1px solid #999999;
     white-space: wrap;
-    flex: 1;
+    flex: 2;
 }
 
 
 .haiku_input {
     border: 1px solid #999999;
+    flex: 3;
 }
 
 .header {
@@ -52,4 +53,31 @@
     background-color: #6b8e23;
     /* background: linear-gradient(to bottom, rgba(15, 177, 40, 0.9), transparent); */
     color: #000000;
+}
+
+.kami_input, .shimo_input {
+    width: 200px;
+    /* writing-mode: vertical-rl; */
+    /* background-color: red; */
+}
+
+
+.naka_input {
+    writing-mode: vertical-rl;
+    width: 280px;
+    /* writing-mode: vertical-rl; */
+    /* background-color: red; */
+}
+
+/* ↓ 【没】forms.pyが自動で#id_kami_goを割り当てるが、それにつけても縦書きには出来なかった。
+#id_kami_go {
+    writing-mode: vertical-rl;
+}
+#id_kami_go.kami_input {
+    writing-mode: vertical-rl;
+} */
+
+
+.haiku_phrase {
+    writing-mode: vertical-rl;
 }

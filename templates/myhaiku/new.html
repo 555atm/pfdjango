@@ -39,11 +39,17 @@
                     <br>
 
                     <form action="{% url 'myhaiku:confirm' %}" method="post">
-                        <label for="kamigo">上の句:</label><br>
+                        <label for="kamigo">上の句:<br>
+                        {{ form.kami_go }}</label><br>
+                        <label for="nakashichi">中の句:<br>
+                        {{ form.naka_shichi }}</label><br>
+                        <label for="shimogo">下の句:<br>
+                        {{ form.shimo_go }}</label><br>
+
+                        <!-- <label for="kamigo">上の句:</label><br>
                             <input type="text" id="kamigo" name="kamigo" size="30" value="{{ kami_go }}"><br>
                                 //上の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
-
-                        <br>
+                            <br>
                         <label for="nakashichi">中の句:</label><br>
                             <input type="text" id="nakashichi" name="nakashichi" size="40" value="{{ naka_shichi }}"><br> 
                                 //中の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
@@ -52,16 +58,16 @@
                         <label for="shomogo">下の句:</label><br>
                             <input type="text" id="shimogo" name="shimogo"  size="30" value="{{ shimo_go }}"><br>
                                 //下の句の入力内容に何かしらエラー有れば、エラーメッセージをすべて表示する。
-                        <br>
+                        <br> -->
 
-                        <input type="hidden" name="done" value="1">
+                        <!-- <input type="hidden" name="done" value="1"> -->
                         {% csrf_token %}
-                        <input type="submit" value="投稿内容の確認">
+                        <input type="submit" value="投稿内容の確認" class="mt-4">
                     </form>
                     <br>
                 </div>
                 <div class="rules m-2">
-                    <p>【基本ルールの説明】</p>
+                    <p>---基本ルールの説明---</p>
                     <ul>
                         <li>『ひらがなのみ』で俳句を書いてください</li>
                         <li>上の句は6～8音、中の句は4~6音、下の句は6～8音にして下さい。</li>
