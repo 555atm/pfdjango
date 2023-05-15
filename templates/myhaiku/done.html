@@ -5,17 +5,27 @@
 {% block contents %}
 
 <div class="wrap">
-    <div class="header">
-        <h1>お遊び俳句ゲーム<h1>
-        <h1>投稿完了<h1>	
+    {% include "myhaiku/_header.html" %}
+
+    <div class="haiku_result">
+        <p>今回投稿した俳句</p>
+        {{ kami_go }}
+        {{ naka_shichi }}
+        {{ shimo_go }}
     </div>
-
-    <div class="norules">
+    <div class="haiku_result">
+        <p>ランダム文字</p>
+        {{ kami_random }}
+        {{ naka_random }}
+        {{ shimo_random }}
+    </div>
+    <div>
+        <a href="{% url 'myhaiku:top' %}" class="btn">俳句トップへ</a>
+    </div>
         <br>
         <br>
         <br>
         <br>
-
     <?php
         // 投稿をDBに記録する
         if (!empty($_SESSION)) {
@@ -49,29 +59,15 @@
     ?>
 
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     </div>
+    {% include "myhaiku/_footer.html" %}
 </div>
 
-<div class="header_menu" style="text-align: right">
+<!-- <div class="header_menu" style="text-align: right">
     <a href="../menu.php" class="btn">TOPへ</a>
     <a href="logout.php" class="btn">ログアウト</a>
 </div>
-
+ -->
 
 
 {% endblock %}

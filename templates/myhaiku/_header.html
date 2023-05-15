@@ -7,6 +7,9 @@
             <h4>俳句を読んでください</h4>
         {% elif 'confirm' in request.path %}
             <h4>投稿内容の確認</h4>
+        {% elif 'done' in request.path %}
+        <h4>投稿を完了しました。</h4>
+        <p>お疲れ様でした。</p>
         {% endif %}
 </div>
     

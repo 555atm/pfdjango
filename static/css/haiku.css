@@ -8,6 +8,11 @@
     /* opacity: 0.9; */
 }
 
+h1,h2,h3,h4,p {
+    font-family:'HG行書体';
+}
+
+
 .container {
     display: flex;
 }
@@ -78,6 +83,8 @@
 } */
 
 
-.haiku_phrase {
+.haiku_result {
     writing-mode: vertical-rl;
+    text-align: center;
+    font-size: 2rem;
 }
