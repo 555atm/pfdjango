@@ -41,10 +41,20 @@
                     <form action="{% url 'myhaiku:done' %}" method="post">
                         <label for="kamigo">上の句:<br>
                         {{ form.kami_go }}</label><br>
+                        <!-- {{ form.errors }} -->
+                        {% if form.kami_go.errors.0 %}
+                            <div class="field-error">{{ form.kami_go.errors.0 }}</div>
+                        {% endif %}
+
                         <label for="nakashichi">中の句:<br>
                         {{ form.naka_shichi }}</label><br>
                         <label for="shimogo">下の句:<br>
                         {{ form.shimo_go }}</label><br>
+
+                        <input type="hidden" name="kami_random" value="{{ kami_random }}">
+                        <input type="hidden" name="naka_random" value="{{ naka_random }}">
+                        <input type="hidden" name="shimo_random" value="{{ shimo_random }}">
+
 
                         <!-- <label for="kamigo">上の句:</label><br>
                             <input type="text" id="kamigo" name="kamigo" size="30" value="{{ kami_go }}"><br>
@@ -62,7 +72,7 @@
 
                         <!-- <input type="hidden" name="done" value="1"> -->
                         {% csrf_token %}
-                        <input type="submit" value="投稿内容の確認" class="mt-4">
+                        <input type="submit" value="投稿の確定" class="mt-4">
                     </form>
                     <br>
                 </div>

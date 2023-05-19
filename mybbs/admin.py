@@ -22,8 +22,6 @@ admin.site.register(Category)
 admin.site.register(Genre)
 admin.site.register(Quiz)
 
-#myhaikuのクラスを表示
-admin.site.register(Haiku)
 
 
 # #AbstractUserを継承することによって、デフォルトUserに要素を追加することができる

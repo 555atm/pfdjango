@@ -104,92 +104,106 @@ class MyhaikuNewView(View):
         })        
 
 
-    def post(self, request, *args, **kwargs):
 
+
+# # ↓　MyhaikuConfirmViewは廃止予定
+# class MyhaikuConfirmView(View):
+#     template_name = 'myhaiku/confirm.html'
+#     def post(self, request, *args, **kwargs):
+
+#         #投稿された句を表示
+
+#         #修正したければ修正
+
+#         #修正不要なら完了画面へ遷移
+
+#         return render(request, self.template_name, {
+#                 "kami_random"            : Haiku.kami_random,
+#                 "naka_random"            : Haiku.naka_random,
+#                 "shimo_random"            : Haiku.shimo_random,
+#                 "kami_go"            : Haiku.kami_go,
+#                 "naka_shichi"            : Haiku.naka_shichi,
+#                 "shimo_go"            : Haiku.shimo_go,
+#         })
+
+
+
+class MyhaikuDoneView(View):
+
+    def post(self, request, *args, **kwargs):
         # postされた内容をformでエラーないか確認
         form = HaikuForm(request.POST)
+        print('--request.POST--')
+        print(request.POST)
+        print('--form(validation前)--')
+        print(form)
 
         #バリデーションでエラーなければ、句もランダム文字も保存
-        if form.is_valid:
+
+        form.kami_random = request.session['kami_random']
+        form.naka_random = request.session['naka_random']
+        form.shimo_random = request.session['shimo_random']
+
+        if form.is_valid():
+
+            #
+            # form.save(commit=False)
+
+            # #ランダム文字をHaikuモデルとして保存
+            # form.kami_random = request.session['kami_random']
+            # form.naka_random = request.session['naka_random']
+            # form.shimo_random = request.session['shimo_random']
 
             #バリデーションエラーのない俳句をモデルとして保存
-            form.save
+            form.save()
+            print('--form(save後)--')
+            print(form)
 
-            #ランダム文字をHaikuモデルとして保存
-            Haiku.kami_random = request.session['kami_random']
-            Haiku.naka_random = request.session['naka_random']
-            Haiku.shimo_random = request.session['shimo_random']
 
-            # request.session['kami_go'] = Haiku.kaminoku
-            # request.session['naka_shichi'] = Haiku.nakanoku
-            # request.session['shimo_go'] = Haiku.shimonoku
+            haiku = Haiku.objects.last()
 
-            template_name = 'myhaiku/confirm.html'
+            # #ランダム文字をHaikuモデルとして保存
+            # haiku.kami_random = request.session['kami_random']
+            # haiku.naka_random = request.session['naka_random']
+            # haiku.shimo_random = request.session['shimo_random']
+
+            # request.session['kami_go'] = Haiku.kami_go
+            # request.session['naka_shichi'] = Haiku.naka_shichi
+            # request.session['shimo_go'] = Haiku.shimo_go
+
+            #俳句用セッションを初期化する
+            request.session['kami_random'] = None
+            request.session['naka_random'] = None
+            request.session['shimo_random'] = None
+            request.session['kami_go'] = None
+            request.session['naka_shichi'] = None
+            request.session['shimo_go'] = None
+
+            template_name = 'myhaiku/done.html'
             return render(request, template_name, {
-                    "kami_random"            : request.session['kami_random'],
-                    "naka_random"            : request.session['naka_random'],
-                    "shimo_random"            : request.session['shimo_random'],
-                    "kami_go"            : Haiku.kaminoku,
-                    "naka_shichi"            : Haiku.nakanoku,
-                    "shimo_go"            : Haiku.shimonoku,
+                "haiku" : haiku,
+                "form" : form,
             })
 
         #エラーならpostされた句を再度newに表示
         else:
             template_name = 'myhaiku/new.html'
-            return render(request, self.template_name, {
-                    "kami_random"            : request.session['kami_random'],
-                    "naka_random"            : request.session['naka_random'],
-                    "shimo_random"            : request.session['shimo_random'],
-                    "kami_go"            : Haiku.kaminoku,
-                    "naka_shichi"            : Haiku.nakanoku,
-                    "shimo_go"            : Haiku.nakanoku,
+            # return reverse('myhaiku:new', kargs={'form':form} )
+            # reverse('myhaiku:new', args=[form] )
+            # reverse(template_name, args=[form] )
+            # return redirect('myhaiku:new', {"form" : form}, permanent=True)
+            # return redirect('myhaiku:new', {"form" : form})
+
+            return render(request, template_name, {
+                # "haiku" : haiku,
+                "form" : form,
+                "kami_random"   : request.session['kami_random'],
+                "naka_random"   : request.session['naka_random'],
+                "shimo_random"  : request.session['shimo_random'],
+                # "kami_go"       : Haiku.kami_go,
+                # "naka_shichi"   : Haiku.naka_shichi,
+                # "shimo_go"      : Haiku.naka_go,
             })
-
-
-class MyhaikuConfirmView(View):
-    template_name = 'myhaiku/confirm.html'
-    def post(self, request, *args, **kwargs):
-
-        #投稿された句を表示
-
-        #修正したければ修正
-
-        #修正不要なら完了画面へ遷移
-
-        return render(request, self.template_name, {
-                "kami_random"            : Haiku.kami_random,
-                "naka_random"            : Haiku.naka_random,
-                "shimo_random"            : Haiku.shimo_random,
-                "kami_go"            : Haiku.kaminoku,
-                "naka_shichi"            : Haiku.nakanoku,
-                "shimo_go"            : Haiku.shimonoku,
-        })
-
-
-
-class MyhaikuDoneView(View):
-    template_name = 'myhaiku/done.html'
-    def post(self, request, *args, **kwargs):
-
-        #Haikuモデルの句とランダム文字には何もしなくてよい
-        #俳句用セッションを初期化する
-        request.session['kami_random'] = None
-        request.session['naka_random'] = None
-        request.session['shimo_random'] = None
-        request.session['kami_go'] = None
-        request.session['naka_shichi'] = None
-        request.session['shimo_go'] = None
-
-
-        return render(request, self.template_name, {
-                "kami_random"            : Haiku.kami_random,
-                "naka_random"            : Haiku.naka_random,
-                "shimo_random"            : Haiku.shimo_random,
-                "kami_go"            : Haiku.kaminoku,
-                "naka_shichi"            : Haiku.nakanoku,
-                "shimo_go"            : Haiku.shimonoku,
-        })
 
 
 
