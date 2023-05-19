@@ -3,6 +3,8 @@
 @media screen and (min-width:480px) {
     /*　画面サイズが480pxからはここを読み込む　*/
 h6 { color:#ededed;}
+
+
 }
 
 
@@ -13,6 +15,14 @@ h6 { color:#ededed;}
 
 
 @media screen and (min-width:1024px) {
-    /*　画面サイズが1024pxからはここを読み込む　*/
-h6 { color:#ededed;}
+/*　画面サイズが1024pxからはここを読み込む　*/
+
+h6 { 
+    color:#ededed;
+}
+
+.list-group-item:hover, .list-group-item:active {
+    background-color: rgb(223, 166, 45) !important;
+    border-color: rgb(0, 0, 0) !important;
+  }
 }

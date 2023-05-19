@@ -1,8 +1,10 @@
 
 <div class="header container-fluid text-center">
     <h2>俳句ゲーム<h1>
-        {% if 'gamelevel' in request.path %}
+        {% if 'top' in request.path %}
             <h4>ゲームレベル選択</h4>
+        {% elif 'gamelevel' in request.path %}
+        <h4>俳句を読んでください</h4>
         {% elif 'new' in request.path %}
             <h4>俳句を読んでください</h4>
         {% elif 'confirm' in request.path %}

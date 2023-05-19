@@ -1,25 +1,86 @@
 {% extends "_base.html" %}
 {% load django_bootstrap5 %}
-{% comment %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body> {% endcomment %}
+{% comment %}
+    <!-- <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>  -->
+{% endcomment %}
 
 {% block contents %}
 
-    <div class="text-center">
+    <!-- <div class="text-center">
         <h2 class="m-2">メニュー</h2>
         <p class="m-3"><a href="{% url 'mybbs:top' %}">掲示板</a></p>
         <p class="m-3"><a href="{% url 'myquiz:top' %}">クイズ</a></p>
         <p class="m-3"><a href="{% url 'myhaiku:top' %}">俳句</a></p>
         <p class="m-3"><a href="{% url 'renx:top' %}">模写コーディング</a></p>
+    </div> -->
+
+
+    <div class="container">
+        <!-- <h3 class="mb-4">メニュー</h3> -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card m-2">
+                    <div class="card-body">
+                        <h4 class="card-title">３択クイズ</h4>
+                        <!-- <img class="card-img-top" src="{% static 'images/高札のアイコン.png' %}" alt="俳句ゲーム"> -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">クイズを解きます
+                                <a href="{% url 'myquiz:top' %}" class="btn btn-primary">クイズを解く</a>
+                            </li>
+                            <li class="list-group-item">クイズを新たに作ります
+                                <a href="{% url 'myquiz:new' %}" class="btn btn-primary">クイズを作る</a>
+                            </li>
+                            <li class="list-group-item">クイズ一覧を表示します
+                                <a href="{% url 'myquiz:top' %}" class="btn btn-primary">クイズ一覧</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card m-2">
+                    <div class="card-body">
+                        <h4 class="card-title">俳句ゲーム</h4>
+                        <!-- <img class="card-img-top" src="{% static 'images/高札のアイコン.png' %}" alt="俳句ゲーム"> -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">俳句を投稿します
+                                <a href="{% url 'myhaiku:new' %}" class="btn btn-primary">俳句を投稿</a>
+                            </li>
+                            <li class="list-group-item">俳句一覧を表示します
+                                <a href="{% url 'myhaiku:list' %}" class="btn btn-primary">俳句一覧</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card m-2">
+                    <div class="card-body">
+                        <h4 class="card-title">掲示板</h4>
+                        <!-- <img class="card-img-top" src="{% static 'images/高札のアイコン.png' %}" alt="俳句ゲーム"> -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">掲示板に投稿します
+                                <a href="{% url 'mybbs:new' %}" class="btn btn-primary">掲示板に投稿</a>
+                            </li>
+                            <li class="list-group-item">掲示板一覧を表示します
+                                <a href="{% url 'mybbs:top' %}" class="btn btn-primary">掲示板一覧</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+                    
 
 {% endblock %}
 {% comment %} </body>
